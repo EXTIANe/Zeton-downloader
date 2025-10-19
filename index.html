@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZETRON Downloader</title>
+  <link rel="stylesheet" href="/public/style.css" />
+</head>
+<body>
+  <h1>🔥 ZETON Downloader 🔥</h1>
+  <p>Download Video atau Audio dari <b>YouTube</b>, <b>TikTok</b>, dan <b>Instagram</b></p>
+
+  <input id="url" type="text" placeholder="Masukkan URL..." />
+  <select id="type">
+    <option value="ytmp4">YouTube MP4</option>
+    <option value="ytmp3">YouTube MP3</option>
+    <option value="tiktok">TikTok</option>
+    <option value="instagram">Instagram</option>
+  </select>
+  <button onclick="download()">Download</button>
+
+  <pre id="result"></pre>
+
+  <script>
+    async function download() {
+      const url = document.getElementById("url").value;
+      const type = document.getElementById("type").value;
+      const result = document.getElementById("result");
+      result.textContent = "⏳ Sedang memproses...";
+
+      const res = await fetch(`/api?type=${type}&url=${encodeURIComponent(url)}`);
+      const data = await res.json();
+      result.textContent = JSON.stringify(data, null, 2);
+    }
+  </script>
+</body>
+</html>
